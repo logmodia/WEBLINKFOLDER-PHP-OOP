@@ -43,14 +43,13 @@
         public static $PASSWORD;
         public static $dsn;
 
-        public function __construct($HOST,$DB,$PORT,$DBUSER,$PASSWORD,$dsn)
+        public function __construct($HOST,$DB,$PORT,$DBUSER,$PASSWORD)
         {
             self::$HOST = $HOST;
             self::$DB = $DB;
             self::$PORT = $PORT;
             self::$DBUSER = $DBUSER;
             self::$PASSWORD = $PASSWORD;
-            self::$dsn = $dsn;
         }
 
         public static function getArguments()
@@ -69,7 +68,7 @@
         private function __construct(){
 
             //DSN (Data Source Name)
-            $_dsn = new DBConnectionParam($_ENV['HOST'],$_ENV["DB"],$_ENV["PORT"],$_ENV["USER"],$_ENV["PWD"],"satatic");
+            $_dsn = new DBConnectionParam($_ENV['HOST'],$_ENV["DB"],$_ENV["PORT"],$_ENV["USER"],$_ENV["PWD"]);
 
             try {
                 parent::__construct($_dsn::getArguments(),$_dsn::$DBUSER,$_dsn::$PASSWORD);
@@ -95,5 +94,3 @@
         }
 
     }
-
-    //var_dump(connectDB::getInstance());

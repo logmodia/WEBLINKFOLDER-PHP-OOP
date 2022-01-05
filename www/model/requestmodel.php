@@ -14,7 +14,7 @@
 
         //read data from database --------------------------------------
         public function readAll(){
-            $query = $this->db->setquery('SELECT * FROM '.$this->table);
+            $query = $this->db->set_query('SELECT * FROM '.$this->table);
             return $query->fetchall();
         }
 

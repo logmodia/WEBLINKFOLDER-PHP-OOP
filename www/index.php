@@ -1,7 +1,7 @@
 <?php
 
 use app\autoloader;
-use app\model\{user,folder,link,usersAccess}; //Namespace group
+use app\model\{user,folder,link,usersAccess,queryModel}; //Namespace group
 
 //require_once 'model/users.php';
 //require_once 'model/folder.php';
@@ -16,8 +16,11 @@ autoloader::register(); //Register automatically create the require statement fo
 //$link = new link();
 //$userAccess = new usersAccess();
 $user1 = new user();
+echo '<pre>';
+var_dump($user1);
+echo '</pre>';
 
-var_dump($user1->readAll());
+var_dump($user1::findBy(["userRole"=>"user"]));
 //var_dump($folder);
 //var_dump($link);
 //var_dump($userAccess);

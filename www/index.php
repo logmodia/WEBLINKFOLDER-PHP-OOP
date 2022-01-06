@@ -15,12 +15,16 @@ autoloader::register(); //Register automatically create the require statement fo
 //$folder = new folder();
 //$link = new link();
 //$userAccess = new usersAccess();
-$user1 = new user();
+$user1 = new user('mika4','mika4@gmail.com','mika40000','user');
+
 echo '<pre>';
-var_dump($user1);
+var_dump($user1::createuser($user1));
 echo '</pre>';
 
+echo '<pre>';
 var_dump($user1::findBy(["userRole"=>"user"]));
+echo '</pre>';
+
 //var_dump($folder);
 //var_dump($link);
 //var_dump($userAccess);

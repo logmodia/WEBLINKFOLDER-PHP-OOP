@@ -1,9 +1,8 @@
 <?php
-namespace app\model;
+
+namespace app\database;
 if (!isset($_ENV["HOST"])){
     require_once 'dbparameters.php';
-}else{
-    echo 'KO.........';
 }
 
 use PDO;
@@ -34,14 +33,13 @@ class DBConnectionParam
         }
     } 
 
-/* Connexion à une base MySQL avec l'invocation de pilote */
+/* Connection to MySQL database */
 class DBConnex extends PDO
 {
 
     private static $dbconnection;
-    public static $db;
 
-    private function __construct(){
+    public function __construct(){
 
         //DSN (Data Source Name)
         $_dsn = new DBConnectionParam($_ENV['HOST'],$_ENV["DB"],$_ENV["PORT"],$_ENV["USER"],$_ENV["PWD"]);
@@ -59,7 +57,7 @@ class DBConnex extends PDO
         }
     }
 
-    public static function getDBConnection(){
+    protected static function getDBConnection(){
         if(self::$dbconnection === null){
             self::$dbconnection = new DBConnex; //Create an instance of DBConnex
         }

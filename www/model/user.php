@@ -1,73 +1,135 @@
 <?php
-namespace app\model;
-require_once 'querymodel.php';
+    /* @HBLog*/
 
-class user extends queryModel
-{
-    protected $idUser;
-    protected $username;
-    protected $email;
-    protected $passW;
-    protected $userRole;
-    private $result;
+    namespace app\model;
+    require_once 'querymodel.php';
 
-    public function __construct($userName, $email,$passW, $userRole)
+    class user extends queryModel
     {
-        $this->userName = $userName;
-        $this->email = $email;
-        $this->passW = $passW;
-        $this->userRole = $userRole;
+        protected $idUser;
+        protected $userName;
+        protected $email;
+        protected $passW;
+        protected $userRole;
 
-        //$this->result = querymodel::setquery("SELECT * FROM users")->fetch();
-
-    }
-
-    //Read data from the user table ---------------------------------------------
-    public static function findBy(array $parameters){
-        //set request criteria
-        //Example: 'Select * From Users Where userRole = ?, "admin"'
-        $columns=[];
-        $values=[];
-
-        //Separate columns from values in two diffrent arrays to match the query parameters structure
-        foreach($parameters as $column => $value){
-            $columns[] = "$column = ?";
-            $values[] = "$value";
+        //private $result;
+    
+        public function readUser(array $data){
+           return $this->findBy('users',$data);
         }
 
-        $criteria = implode(" AND ",$columns); //Convert the column array into string : userRole = ?
+        public function createUser(array $data){
+           return $this->createRecord('users',$data);
+        }
 
-        $reqFindBy = "SELECT * FROM users WHERE $criteria";
-        $resFindBy = querymodel::setquery($reqFindBy,$values)->fetchAll(); //1st argument : 'Select * From Users Where userRole = ?, 2nd argument : userRole = ?
-        return $resFindBy;
-    }
+        /*Create a user using hydration method---------------------------------------------------
+        Caution : to use this method every property of the class must have a setter
+        Grab and use the setter automatically */
 
-    //Creating a new user--------------------------------------------------------------------------------    
-    public static function createuser(user $user){
-
-        //set request criteria
-        //Example: 'INSERT INTO Users (userName,email,passW,userRole) VALUES(?,?,?,?)';
-        $columns=[];
-        $paramMark=[]; // ?
-        $values=[];
-
-        //Separate columns from values in two diffrent arrays to match the query parameters structure
-        foreach($user as $column => $value){
-            if ($column!==null && ($column === 'userName' OR $column === 'email' OR $column === 'passW' OR $column === 'userRole')){
-
-                $columns[] = $column;
-                $paramMark[] = "?";
-                $values[] = "$value";
+        public function hydrationMethod(array $data){
+            //Retrieve the setter method corresponding to the $key
+            //userName --> setUsername
+            foreach ($data as $key => $value) {
+                $setter = 'set'.ucfirst($key);
+                
+                //Check if the setter exists
+                if (method_exists($this,$setter)){
+                    //Call the setter
+                    $this->$setter($value);
+                }
             }
+
+            return $this;
         }
 
-        $columnsList = implode(", ",$columns); //Convert the column array into string
-        $paramMarkList = implode(",",$paramMark); //Convert the paramMark array into string
-        $valuesList = implode(",",$values); //Convert the values array into string
+        
+        /**
+         * Get the value of idUser
+         */ 
+        public function getIdUser()
+        {
+            return $this->idUser;
+        }
 
-        $reqInsertUser = "INSERT INTO users ($columnsList) VALUES ($paramMarkList)";
-        $reqInsertUser = querymodel::setquery($reqInsertUser,$values); //1st argument : 'INSERT INTO Users (userName,email,passW,userRole) VALUES(?,?,?,?), 2nd argument : Values
-      
+        /**
+         * Get the value of username
+         */ 
+        public function getUserName()
+        {
+            return $this->userName;
+        }
+
+        /**
+         * Set the value of username
+         *
+         * @return  self
+         */ 
+        public function setUsername($userName)
+        {
+            $this->userName = $userName;
+
+            return $this;
+        }
+
+        /**
+         * Get the value of email
+         */ 
+        public function getEmail()
+        {
+            return $this->email;
+        }
+
+        /**
+         * Set the value of email
+         *
+         * @return  self
+         */ 
+        public function setEmail($email)
+        {
+            $this->email = $email;
+
+            return $this;
+        }
+
+        /**
+         * Get the value of userRole
+         */ 
+        public function getUserRole()
+        {
+            return $this->userRole;
+        }
+
+        /**
+         * Set the value of userRole
+         *
+         * @return  self
+         */ 
+        public function setUserRole($userRole)
+        {
+            $this->userRole = $userRole;
+
+            return $this;
+        }
+
+        /**
+         * Get the value of passW
+         */ 
+        public function getPassW()
+        {
+            return $this->passW;
+        }
+
+        /**
+         * Set the value of passW
+         *
+         * @return  self
+         */ 
+        public function setPassW($passW)
+        {
+            $this->passW = $passW;
+
+            return $this;
+        }
     }
 
-}
+    /* @HBLog*/

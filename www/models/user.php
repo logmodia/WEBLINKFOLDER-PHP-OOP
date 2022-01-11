@@ -1,7 +1,7 @@
 <?php
     /* @HBLog*/
 
-    namespace app\model;
+    namespace app\models;
     require_once 'querymodel.php';
 
     class user extends queryModel

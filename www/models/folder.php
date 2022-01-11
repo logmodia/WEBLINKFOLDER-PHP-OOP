@@ -1,7 +1,7 @@
 <?php
 namespace app\model;
 
-class folder
+class Folder
 {
     public $idFolder = 'My data';
     public $idFolderParent;
@@ -11,12 +11,16 @@ class folder
     public $descript;
     public $folderAcess;
 
+    static $newFolder;
+
     public function __construct(){
         return $this->idFolder;
     }
 
-    public function getFolder(){
-        $newFolder = new Folder;
+    public static function getFolder(){
+        
+        self::$newFolder = new Folder;
+        return self::$newFolder;
     }
     
 }
@@ -24,10 +28,12 @@ class folder
 class xclass extends Folder
 {
     public function data(){
-        return $this->getFolder();
+        return Folder::getFolder();
     }
 }
 
 $newXclass = new Xclass;
 
 var_dump($newXclass);
+
+var_dump($_GET);

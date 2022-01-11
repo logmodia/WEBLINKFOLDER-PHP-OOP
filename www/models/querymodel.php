@@ -1,7 +1,7 @@
 <?php
     /* @HBLog*/
 
-    namespace app\model;
+    namespace app\models;
     require_once 'database/db.php';
 
     use app\database\DBConnex;

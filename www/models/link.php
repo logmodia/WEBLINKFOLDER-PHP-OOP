@@ -15,6 +15,8 @@ echo array_reduce($arr,fn($varE,$varD)=> $varE + $varD);
 
 echo '</br>';
 
+$resultForeach;
 foreach($arr as $key=>$value){
-    echo $value+$value;
+    $resultForeach = $value+$value;
 }
+echo $resultForeach;

@@ -1,1 +1,0 @@
-<H3>This is the main view of the application</H3>

@@ -48,7 +48,7 @@ class DBConnex extends PDO
             parent::__construct($_dsn::getArguments(),$_dsn::$DBUSER,$_dsn::$PASSWORD);
 
             $this->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, "SET NAMES utf8"); // MySQL statements in utf8 format
-            $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // MySQL fetch mode will be an associative array
+            $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ); // MySQL fetch mode will be an associative array
             $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Throw exception if error
 
         } catch (PDOException $e) {

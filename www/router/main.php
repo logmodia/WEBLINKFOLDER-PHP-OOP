@@ -1,6 +1,6 @@
 <?php
 namespace app\router;
-use app\controllers\mainController;
+use app\controllers\indexController;
 
 class main
 {
@@ -39,17 +39,17 @@ class main
             //Check if the methode in $action exist
             if (method_exists($controller, $action)){ 
                 //If there are remaining parameters then add them as parameters of $action methode
-                (isset($params[0]))? $controller->$action($params):$controller->$action();
+                //(isset($params[0]))? $controller->$action($params):$controller->$action(); old way of doing
+                (isset($params[0]))? call_user_func_array([$controller, $action], $params):$controller->$action();
 
             }else{
                 http_response_code(404);
                 echo 'This page does not exist';
             }
 
-            
         }else{
             //If no parameters specified then call the default controller
-            $mainController = new mainController;
+            $mainController = new indexController;
 
             $mainController->index();
 
